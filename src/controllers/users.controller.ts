@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import UserService from '../services/users.service';
-import IUser from '../interfaces/user.interface';
+import { UserService } from '../services';
+import { IUser } from '../interfaces';
 import tokenGenerate from '../utils/tokenGenerate';
 
 class UsersController {

@@ -1,12 +1,12 @@
 import connection from '../models/connection';
-import OrdersModel from '../models/orders.model';
-import IOrder from '../interfaces/order.interface';
+import { OrderModel } from '../models';
+import { IOrder } from '../interfaces';
 
 export default class OrderService {
-  model: OrdersModel;
+  model: OrderModel;
 
   constructor() {
-    this.model = new OrdersModel(connection);
+    this.model = new OrderModel(connection);
   }
 
   async getAll(): Promise<IOrder[]> {

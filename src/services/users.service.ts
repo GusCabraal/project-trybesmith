@@ -1,12 +1,12 @@
 import connection from '../models/connection';
-import UsersModel from '../models/users.model';
-import IUser from '../interfaces/user.interface';
+import { UserModel } from '../models';
+import { IUser } from '../interfaces';
 
-class UserService {
-  model: UsersModel;
+export default class UsersService {
+  model: UserModel;
 
   constructor() {
-    this.model = new UsersModel(connection);
+    this.model = new UserModel(connection);
   }
 
   async create(user: IUser): Promise<number> {
@@ -14,5 +14,3 @@ class UserService {
     return newUser;
   }
 }
-
-export default UserService;

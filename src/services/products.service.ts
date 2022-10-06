@@ -1,12 +1,12 @@
 import connection from '../models/connection';
-import ProductsModel from '../models/products.model';
-import IProduct from '../interfaces/product.interface';
+import { ProductModel } from '../models';
+import { IProduct } from '../interfaces';
 
-class ProductService {
-  model: ProductsModel;
+export default class ProductService {
+  model: ProductModel;
 
   constructor() {
-    this.model = new ProductsModel(connection);
+    this.model = new ProductModel(connection);
   }
 
   async getAll(): Promise<IProduct[]> {
@@ -19,5 +19,3 @@ class ProductService {
     return newProduct;
   }
 }
-
-export default ProductService;
