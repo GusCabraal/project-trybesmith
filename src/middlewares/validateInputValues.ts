@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { newProduct } from './schemas';
+import { newProduct, newUser } from './schemas';
 
 const validateLogin = async (req:Request, res:Response, next:NextFunction) => {
   const { username, password } = req.body;
@@ -13,6 +13,7 @@ const validateLogin = async (req:Request, res:Response, next:NextFunction) => {
   }
   next();
 };
+
 const validateNewProduct = async (req:Request, res:Response, next:NextFunction) => {
   const { name, amount } = req.body;
   const { error } = newProduct.validate({ name, amount });
@@ -27,7 +28,22 @@ const validateNewProduct = async (req:Request, res:Response, next:NextFunction) 
   
   next();
 };
+const validateNewUser = async (req:Request, res:Response, next:NextFunction) => {
+  const { username, level, classe, password } = req.body;
+  const { error } = newUser.validate({ username, level, classe, password });
+  if (error) {
+    if (error.details[0].type === 'any.required') {
+      const { message } = error;
+      return res.status(400).json({ message });
+    }
+    const { message } = error;
+    return res.status(422).json({ message });
+  }
+  
+  next();
+};
 export {
   validateLogin,
   validateNewProduct,
+  validateNewUser,
 };

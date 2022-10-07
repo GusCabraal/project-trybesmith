@@ -5,8 +5,9 @@ export const newProduct = Joi.object({
   amount: Joi.string().min(3).required(),
 });
 
-export const newLogin = Joi.object({
-  title: Joi.string().required(),
-  content: Joi.string().required(),
-  categoryIds: Joi.array().required(),
+export const newUser = Joi.object({
+  username: Joi.string().min(3).required(),
+  classe: Joi.string().min(3).required(),
+  level: Joi.number().min(1).required(),
+  password: Joi.string().min(8).required(),
 });
