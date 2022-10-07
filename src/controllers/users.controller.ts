@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { UserService } from '../services';
-import { IUser } from '../interfaces';
+import { ILogin, IUser } from '../interfaces';
 import tokenGenerate from '../utils/tokenGenerate';
 
 class UsersController {
@@ -10,6 +10,14 @@ class UsersController {
     await this.userService.create(req.body);
     const token = tokenGenerate(req.body);
     res.status(201).json({ token });
+  };
+
+  login = async (req: Request<unknown, unknown, ILogin>, res: Response) => {
+    const { error, status, token } = await this.userService.getByNameAndPassword(req.body);
+    if (error) {
+      return res.status(status).json(error);
+    }
+    res.status(200).json({ token });
   };
 }
 

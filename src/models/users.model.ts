@@ -1,5 +1,5 @@
-import { Pool, ResultSetHeader } from 'mysql2/promise';
-import { IUser } from '../interfaces';
+import { Pool, ResultSetHeader, RowDataPacket } from 'mysql2/promise';
+import { ILogin, IUser } from '../interfaces';
 
 export default class ProductModel {
   connection: Pool;
@@ -15,5 +15,17 @@ export default class ProductModel {
       [username, classe, level, password],
     );
     return insertId;
+  }
+
+  async getByNameAndPassword(login: ILogin): Promise<IUser[]> {
+    const { username, password } = login;
+    const [rows] = await this.connection
+      .execute<(
+    IUser[] & RowDataPacket[])>(`
+      SELECT * FROM Trybesmith.Users
+      WHERE username = ? AND password = ?;`,
+      [username, password],
+      );
+    return rows;
   }
 }

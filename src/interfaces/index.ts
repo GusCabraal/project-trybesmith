@@ -17,8 +17,23 @@ interface IUser {
   level: number;
   password?: string;
 }
+
+interface ILogin {
+  id?: number;
+  username: string;
+  password?: string;
+}
+
+interface IReturnServiceLogin {
+  status:number;
+  token?: string;
+  error?: unknown
+}
+
 export {
   IOrder,
   IProduct,
   IUser,
+  ILogin,
+  IReturnServiceLogin,
 };

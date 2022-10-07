@@ -1,6 +1,7 @@
 import connection from '../models/connection';
 import { UserModel } from '../models';
-import { IUser } from '../interfaces';
+import { ILogin, IReturnServiceLogin, IUser } from '../interfaces';
+import tokenGenerate from '../utils/tokenGenerate';
 
 export default class UsersService {
   model: UserModel;
@@ -12,5 +13,15 @@ export default class UsersService {
   async create(user: IUser): Promise<number> {
     const newUser = await this.model.create(user);
     return newUser;
+  }
+
+  async getByNameAndPassword(user:ILogin): Promise<IReturnServiceLogin> {
+    const users = await this.model.getByNameAndPassword(user);
+    if (users.length !== 0) {
+      const token = tokenGenerate(users[0]);
+      return { status: 200, token, error: null };
+    }
+    const message = 'Username or password invalid';
+    return { status: 401, error: { message } };
   }
 }
