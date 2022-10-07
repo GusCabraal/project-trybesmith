@@ -1,5 +1,5 @@
 import { Pool, ResultSetHeader, RowDataPacket } from 'mysql2/promise';
-import { IProduct } from '../interfaces';
+import { IProduct, IUpdateOrder } from '../interfaces';
 
 export default class ProductModel {
   connection: Pool;
@@ -21,5 +21,15 @@ export default class ProductModel {
       [name, amount],
     );
     return { id: insertId, ...product };
+  }
+
+  async updateOrder({ orderId, productId }: IUpdateOrder): Promise<number> {
+    const [{ affectedRows }] = await this.connection.execute<ResultSetHeader>(
+      `UPDATE Trybesmith.Products
+        SET orderId = ?
+        WHERE id = ?`,
+      [orderId, productId],
+    );
+    return affectedRows;
   }
 }

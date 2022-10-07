@@ -1,3 +1,5 @@
+import { Request } from 'express';
+
 interface IOrder {
   id?: number;
   userId?: number;
@@ -30,10 +32,21 @@ interface IReturnServiceLogin {
   error?: unknown
 }
 
+interface IUpdateOrder {
+  orderId: number;
+  productId: number;
+}
+
+interface IReqLogin extends Request{
+  userId?: number | undefined;
+}
+
 export {
   IOrder,
   IProduct,
   IUser,
   ILogin,
   IReturnServiceLogin,
+  IReqLogin,
+  IUpdateOrder,
 };

@@ -24,4 +24,9 @@ export default class UsersService {
     const message = 'Username or password invalid';
     return { status: 401, error: { message } };
   }
+
+  async getUserByUsername(username:string): Promise<IUser> {
+    const user = await this.model.getUserByUsername(username);
+    return user;
+  }
 }

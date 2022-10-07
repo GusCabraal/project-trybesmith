@@ -28,4 +28,15 @@ export default class ProductModel {
       );
     return rows;
   }
+
+  async getUserByUsername(username: string): Promise<IUser> {
+    const [[rows]] = await this.connection
+      .execute<(
+    IUser[] & RowDataPacket[])>(`
+      SELECT * FROM Trybesmith.Users
+      WHERE username = ?;`,
+      [username],
+      );
+    return rows;
+  }
 }
