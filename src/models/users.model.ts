@@ -21,21 +21,10 @@ export default class ProductModel {
     const { username, password } = login;
     const [rows] = await this.connection
       .execute<(
-    IUser[] & RowDataPacket[])>(`
-      SELECT * FROM Trybesmith.Users
+    IUser[] & RowDataPacket[])>(
+      `SELECT * FROM Trybesmith.Users
       WHERE username = ? AND password = ?;`,
       [username, password],
-      );
-    return rows;
-  }
-
-  async getUserByUsername(username: string): Promise<IUser> {
-    const [[rows]] = await this.connection
-      .execute<(
-    IUser[] & RowDataPacket[])>(`
-      SELECT * FROM Trybesmith.Users
-      WHERE username = ?;`,
-      [username],
       );
     return rows;
   }

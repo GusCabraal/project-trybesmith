@@ -23,13 +23,12 @@ export default class ProductModel {
     return { id: insertId, ...product };
   }
 
-  async updateOrder({ orderId, productId }: IUpdateOrder): Promise<number> {
-    const [{ affectedRows }] = await this.connection.execute<ResultSetHeader>(
+  async updateOrder({ orderId, productId }: IUpdateOrder) {
+    await this.connection.execute<ResultSetHeader>(
       `UPDATE Trybesmith.Products
         SET orderId = ?
         WHERE id = ?`,
       [orderId, productId],
     );
-    return affectedRows;
   }
 }

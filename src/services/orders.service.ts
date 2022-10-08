@@ -17,12 +17,11 @@ export default class OrderService {
     return orders;
   }
 
-  async create(userId: number | undefined, productsIds: number[]): Promise<number> {
+  async create(userId: number | undefined, productsIds: number[]) {
     const orderId = await this.model.create(userId);
     const updateProducts = productsIds.map(async (productId) => {
       await this.productModel.updateOrder({ orderId, productId });
     });
     Promise.all(updateProducts);
-    return orderId;
   }
 }
