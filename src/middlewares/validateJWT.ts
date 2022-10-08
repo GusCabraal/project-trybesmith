@@ -1,15 +1,12 @@
 import jwt, { JwtPayload } from 'jsonwebtoken';
-import { Request, Response, NextFunction } from 'express';
-// import { IUser } from '../interfaces';
-import { UserService } from '../services';
+import { Response, NextFunction } from 'express';
 import { IReqLogin } from '../interfaces';
 
 require('dotenv/config');
 
 const secret = process.env.JWT_SECRET || '';
-const userService = new UserService();
 
-const validateJWT = async (req:IReqLogin & Request, res:Response, next:NextFunction) => {
+const validateJWT = async (req:IReqLogin, res:Response, next:NextFunction) => {
   const token = req.header('Authorization');
 
   if (!token) {
@@ -17,14 +14,8 @@ const validateJWT = async (req:IReqLogin & Request, res:Response, next:NextFunct
   }
 
   try {
-    const { username } = jwt.verify(token, secret) as JwtPayload;
-
-    const user = await userService.getUserByUsername(username);
-
-    if (!user) {
-      return res.status(401).json({ message: 'Invalid token' });
-    }
-    req.userId = user.id;
+    const { id } = jwt.verify(token, secret) as JwtPayload;
+    req.userId = id;
 
     next();
   } catch (error) {

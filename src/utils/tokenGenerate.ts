@@ -8,6 +8,7 @@ const secret = process.env.JWT_SECRET || '';
 
 const tokenGenerate = (user: IUser) => {
   const payload: IUser = {
+    id: user.id,
     username: user.username,
     classe: user.classe,
     level: user.level,
