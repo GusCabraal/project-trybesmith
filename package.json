@@ -9,7 +9,8 @@
     "test": "jest",
     "posttest": "ts-node tests/recreateDatabase.ts",
     "restore": "ts-node tests/recreateDatabase.ts",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "migration": "node -e \"require('./runSQL').runTrybesmith()\""
   },
   "keywords": [],
   "author": "",
