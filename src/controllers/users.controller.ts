@@ -17,7 +17,7 @@ class UsersController {
     if (error) {
       return res.status(status).json(error);
     }
-    res.status(200).json({ token });
+    res.status(status).json({ token });
   };
 }
 

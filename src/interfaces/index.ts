@@ -37,6 +37,10 @@ interface IUpdateOrder {
   productId: number;
 }
 
+interface IError extends Error {
+  status: number;
+}
+
 interface IReqLogin extends Request{
   userId?: number | undefined;
 }
@@ -49,4 +53,5 @@ export {
   IReturnServiceLogin,
   IReqLogin,
   IUpdateOrder,
+  IError,
 };

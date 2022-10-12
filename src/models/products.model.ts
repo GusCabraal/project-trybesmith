@@ -23,7 +23,7 @@ export default class ProductModel {
     return { id: insertId, ...product };
   }
 
-  async updateOrder({ orderId, productId }: IUpdateOrder) {
+  async updateOrder({ orderId, productId }: IUpdateOrder): Promise<void> {
     await this.connection.execute<ResultSetHeader>(
       `UPDATE Trybesmith.Products
         SET orderId = ?
